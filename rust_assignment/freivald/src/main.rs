@@ -1,4 +1,9 @@
 // TODO: Import necessary libraries. Check cargo.toml and the documentation of the libraries.
+use ark_bls12_381::fq as Fq;
+use ark_std::rand::Rng;
+use num_traits::pow;
+use nalgebra::DMatrix;
+
 struct Freivald {
     x: // Array/Vec of Fq,
 }
@@ -6,24 +11,32 @@ struct Freivald {
 impl Freivald {
     // TODO: Create constructor for object
     fn new(array_size: usize) -> Self {
-        todo!()
         // Generate random number
+        let mut rng = ark_std::test_rng();
+        let r: Fq = rng.gen();
         // Populate vector with values r^i for i=0..matrix_size
+        for i=0..array_size {
+            x.push(pow(r,i));
+        }
         // Return freivald value with this vector as its x value
+        x
     }
 
     // TODO: Add proper types to input matrices. Remember matrices should hold Fq values
     fn verify(&self, matrix_a, matrix_b, supposed_ab) -> bool {
         assert!(check_matrix_dimensions(matrix_a, matrix_b, supposed_ab));
-        todo!()
         // TODO: check if a * b * x == c * x. Check algorithm to make sure order of operations are
+        let k: Fq = b * x;
+        let l: Fq = a * k;
+        let m: Fq = c * x;
         // correct
+        l == m
     }
 
     // utility function to not have to instantiate Freivalds if you just want to make one
     // verification.
     // TODO: Add types for arguments
-    fn verify_once(matrix_a, matrix_b, supposed_ab) -> bool {
+    fn verify_once(matrix_a: Fq, matrix_b: Fq, supposed_ab: Fq) -> bool {
         let freivald = Freivald::new(supposed_ab.nrows());
         freivald.verify(matrix_a, matrix_b, supposed_ab)
     }

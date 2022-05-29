@@ -17,8 +17,8 @@ const config: HardhatUserConfig = {
         paths: ["@appliedzkp/semaphore-contracts/base/Verifier.sol"]
     },
     networks: {
-        ropsten: {
-            url: process.env.ROPSTEN_URL || "",
+        goerli: {
+            url: process.env.GOERLI_URL || "",
             accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
         }
     },
